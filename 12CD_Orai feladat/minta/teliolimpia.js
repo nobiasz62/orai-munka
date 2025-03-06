@@ -35,6 +35,17 @@ app.get("/versenyzok", (req, res) => {
     });
 });
 
+app.get('/eremszerzok', (req, res) => {
+    const sql = "SELECT * FROM eredmenyek ORDER BY helyezes ASC";
+    db.query(sql, (err, results) => {
+        if (err) {
+            res.status(500).send('Hiba történt az éremszerzők lekérdezésekor');
+            return;
+        }
+        res.json(results);
+    });
+});
+
 app.get("/magyar_eremszerzok", (req, res) => {
     const sql = `
         SELECT v.versenyzo, m.helyezes, t.tav, s.sportagneve
